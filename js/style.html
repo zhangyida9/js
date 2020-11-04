@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .classA {
+            color: red;
+        }
+        .classB {
+            background-color: blue;
+        }
+        .classC {
+            font-size: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h2>1.class绑定： ：class='xxx'</h2>
+        <h2 :class="myClass">xxx</h2>  <!---类名不确定用字符串语法-->
+        <h2 :class="{ classA: hasA, classB:hasB }">yyy</h2> <!---类名确定,但不确定有没有，用字符串语法-->
+        <h2>2.style绑定</h2>
+        <p :style="{ color: myColor, fontSize: myFontSize + 'px' }">xxx</p>
+        <button @click="update">gengxin</button>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+        const vm = new Vue ({
+            el: '#app',
+            data () {
+                return {
+                    myClass: 'classA',
+                    hasA: true,
+                    hasB: false,
+                    myColor: 'blue',
+                    myFontSize: 20
+
+                }
+            },
+            methods: {
+                update() {
+                    this.myClass = 'classB'
+                    this.hasA = !this.hasA
+                    this.hasB = !this.hasB
+                    this.myColor = 'pink'
+                    this.myFontSize = 60
+
+                },
+            }
+        })
+    </script>
+</body>
+</html>
