@@ -24,7 +24,8 @@
                 <td>{{ item.id }}</td>
                 <td>{{ item.name }}</td>
                 <td>{{ item.date }}</td>
-                <td>{{ getFinalPrice(item.price) }}</td>
+                <!-- <td>{{ getFinalPrice(item.price) }}</td> -->
+                <td>{{ item.price | showPrice }}</td>
                 <td>
                     <button @click="sub(index)" :disabled=" item.count <= 1">-</button>
                     {{ item.count }}
@@ -34,13 +35,14 @@
                     <button @click="deleteLine(index)">移除</button>
                 </td>        
             </tr>
-            <h2>总价格：{{ getFinalPrice(totalPrice) }}</h2>
+            <!-- <h2>总价格：{{ getFinalPrice(totalPrice) }}</h2> -->
+            <h2>总价格：{{ totalPrice | showPrice }}</h2>
         </tbody>
     </table>
    </div>
    <h2 v-else>购物车为空</h2>
 </div>
-<script src="./js/vue.js"></script>
+<script src="./vue.js"></script>
 <script>
     const vm = new Vue({
         el: '#app',
@@ -62,19 +64,37 @@
             deleteLine(index) {
                 this.books.splice(index,1)
             },
-            getFinalPrice(price) {
-                return '￥' + price.toFixed(2)   //toFixed保留两位小数
-            }
+            // getFinalPrice(price) {
+            //     return '￥' + price.toFixed(2)   //toFixed保留两位小数
+            // },
         },
         computed: {
             totalPrice() {
-                let total = 0
-                for (let i = 0; i< this.books.length; i++) {
-                    total += this.books[i].price * this.books[i].count
-                }
-                return total
-            }
+                // 1.let total = 0  
+                // for (let i = 0; i< this.books.length; i++) {
+                //     total += this.books[i].price * this.books[i].count
+                // }
+                // return total
+                // 2.let total = 0  
+                // for (let i in this.books) {  //in 数组  for in得到的是索引
+                //     total += this.books[i].price * this.books[i].count
+                // }
+                // return total
+                // 3.let total = 0
+                // for (items of this.books) {  //for of得到的是值
+                //     total += items.price * items.count
+                // }
+                // return total
+                return this.books.reduce(function (preValue, book) {
+                    return preValue + book.price * book.count
+                },0)
+             }
         },
+        filters: {  //过滤器，要过滤的东西作为参数
+            showPrice(price) {
+                return '￥' + price.toFixed(2)
+            }
+        }
     })
 </script>
 </body>
