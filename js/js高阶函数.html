@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //filter中的回调函数必须返回布尔值
+        //true：当返回true时，函数内部会自动将这次回调的n加入到新的数组中
+        //false: 当返回false时，函数内部会过滤掉这次n
+        const nums = [10,20,30,50,100,40,200]
+
+        // let newNumbers = nums.filter( function (n){
+        //     return n > 80
+        // })
+        // console.log(newNumbers);
+
+        // //map
+        // const new2Numbers = newNumbers.map(function(n){
+        //     return n * 2
+        // })
+        // console.log(new2Numbers);
+
+        // //reduce: 对数组中所有内容进行汇总
+        // let total = new2Numbers.reduce(function(preValue, n){
+        //     return preValue + n
+        // },0)
+
+        // console.log(total);
+        //函数式编程
+
+    //     let total = nums.filter(function(n) {
+    //         return n >80
+    //     }).map(function(n) {
+    //         return n * 2
+    //     }).reduce(function(preValue, n){
+    //         return preValue + n
+    //     },0)
+
+    //     console.log(total);
+
+            let total = nums.filter( n => n > 80).map( n => n * 2).reduce((pre, n) => pre + n)
+            console.log(total);
+    </script>
+</body>
+</html>
