@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <cpnc :cmovies="movies" :cmessage="message"></cpnc>
+    </div>
+    <template id="cpna">
+        <div>
+            <ul>
+                <li v-for="item in cmovies">{{ item }}</li>
+            </ul>
+            <p> {{ cmovies }} </p>
+            <h2> {{ cmessage }} </h2>
+        </div>
+    </template>
+    <script src="./vue.js"></script>
+    <script>
+        const cpnb = {
+            template: '#cpna',
+            // props:['cmovies','cmessage']  //1.数组
+            //1.类型限制
+            // props: {
+            //     cmovies: Array,
+            //     cmessage: String
+            // }
+            //2.提供一些默认值，以及必传值
+            props: {
+                cmessage: {
+                    type: String,
+                    default: 'aaa',
+                    required: true
+                },
+                //类型是对象或者数组时，defaule默认值必须是函数
+                cmovies: {  //如果是驼峰：cMovies =》c-movies, myChildrenMessage =》my-children-message
+                    type: Array,
+                    default () {
+                        return []
+                    },
+                    required: true
+                }
+            }
+        }
+
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                message: '你好啊',
+                movies: ['海王', '海贼王' ,'海尔兄弟']
+            },
+            components: {
+                'cpnc': cpnb
+            }
+        })
+
+    </script>
+</body>
+</html>
